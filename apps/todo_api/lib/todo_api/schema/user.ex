@@ -23,6 +23,8 @@ defmodule TodoApi.Web.TodoApi.Schema.User do
   def signup_changeset(struct, params \\ %{}) do
     struct
       |> cast(params, [:email, :password, :password_confirmation])
+      |> validate_format(:email, ~r/@/)
+      |> validate_length(:password, min: 5)
       |> validate_required([:password, :password_confirmation])
       |> password_and_confirmation_matches()
       |> unique_constraint(:email)

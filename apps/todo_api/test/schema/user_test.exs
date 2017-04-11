@@ -32,7 +32,7 @@ defmodule LaVoyage.Db.UserTest do
       bad_pass = %{
         email: "brad@example.com",
         password: "asfga67585ASDF",
-        password_confirmation: "asfga67585ASDF"
+        password_confirmation: "asfga67585AS"
       }
       changeset = User.signup_changeset(%User{}, bad_pass)
       refute changeset.valid?
