@@ -7,7 +7,7 @@ defmodule TodoApi.Schema.User.Todo do
     field :description, :string
     field :done, :boolean, default: false
     #field :owner, :id, references
-    belongs_to :user, User
+    belongs_to :user, User, foreign_key: :owner_id
 
     timestamps()
   end

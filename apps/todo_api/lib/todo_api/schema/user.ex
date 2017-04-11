@@ -7,7 +7,7 @@ defmodule TodoApi.Schema.User do
     field :password_hash, :string
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
-    has_many :todos, Todo
+    has_many :todos, Todo, foreign_key: :owner_id
 
     timestamps()
   end
