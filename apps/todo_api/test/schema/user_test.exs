@@ -1,7 +1,7 @@
-defmodule LaVoyage.Db.UserTest do
+defmodule TodoApi.Test.Schema.UserTest do
   use TodoApi.DataCase
 
-  alias TodoApi.Web.TodoApi.Schema.User 
+  alias TodoApi.Schema.User 
 
   @valid_attrs %{uid: "some content"}
   @valid_signup_attrs %{

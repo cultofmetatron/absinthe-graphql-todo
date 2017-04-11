@@ -1,7 +1,7 @@
-defmodule LaVoyage.Db.UserTest do
+defmodule TodoApi.Test.Schema.TodoTest do
   use TodoApi.DataCase
 
-  alias TodoApi.Web.TodoApi.Schema.User
+  alias TodoApi.Schema.User
   alias TodoApi.Web
 
 end

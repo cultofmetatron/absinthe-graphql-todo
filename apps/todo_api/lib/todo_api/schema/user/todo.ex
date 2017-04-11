@@ -1,6 +1,6 @@
-defmodule TodoApi.Web.TodoApi.Schema.User.Todo do
+defmodule TodoApi.Schema.User.Todo do
   use TodoApi.Api, :schema
-  alias TodoApi.Web.TodoApi.Schema.User
+  alias TodoApi.Schema.User
 
   schema "todos" do
     field :content, :string
