@@ -27,6 +27,8 @@ defmodule TodoApi.Web.TodoApi.Schema.User do
       |> validate_length(:password, min: 5)
       |> validate_required([:password, :password_confirmation])
       |> password_and_confirmation_matches()
+      |> generate_password_hash()
+      |> validate_required([:password_hash])
       |> unique_constraint(:email)
   end
 
@@ -50,7 +52,7 @@ defmodule TodoApi.Web.TodoApi.Schema.User do
   def generate_password_hash(changeset) do
     password = get_change(changeset, :password)
     hash = Comeonin.Bcrypt.hashpwsalt(password)
-    changeset |> put_change(:password, hash)
+    changeset |> put_change(:password_hash, hash)
   end
 
 
