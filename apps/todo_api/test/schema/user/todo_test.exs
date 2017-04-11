@@ -44,7 +44,11 @@ defmodule TodoApi.Test.Schema.TodoTest do
 
     test "todo can be marked as completed", %{ user: user} do
       user = user |> Repo.preload(:todos)
-      IO.inspect(user)
+      [todo | _] = user.todos
+      assert todo.content == "do the laundry"
+      refute todo.done
+      {:ok, todo} = Todo.update_changeset(todo, %{done: true}) |> Repo.update()
+      assert todo.done
     end
 
 
