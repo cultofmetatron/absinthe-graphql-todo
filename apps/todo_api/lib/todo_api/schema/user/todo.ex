@@ -24,6 +24,7 @@ defmodule TodoApi.Schema.User.Todo do
     build_assoc(user, :todos)
       |> cast(params, [:content, :description, :done])
       |> validate_required([:content])
+      |> validate_length(:content, min: 1)
   end
 
   @doc"""
