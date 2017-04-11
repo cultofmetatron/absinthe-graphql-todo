@@ -21,7 +21,7 @@ defmodule TodoApi.Schema.User.Todo do
     })
   """
   def create_changeset(%User{}=user, params \\ %{}) do
-    %__MODULE__{}
+    build_assoc(user, :todos)
       |> cast(params, [:content, :description, :done])
       |> validate_required([:content])
   end
