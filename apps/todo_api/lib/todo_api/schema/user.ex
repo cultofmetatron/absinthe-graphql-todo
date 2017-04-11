@@ -2,13 +2,15 @@ defmodule TodoApi.Schema.User do
   use TodoApi.Api, :schema
 
   alias TodoApi.Schema.User.Todo
+  alias TodoApi.Schema.User.Label
   schema "users" do
     field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     has_many :todos, Todo, foreign_key: :owner_id
-
+    has_many :labels, Label
+    has_many(:labeled_todos, through: [:labels, :todo])
     timestamps()
   end
 

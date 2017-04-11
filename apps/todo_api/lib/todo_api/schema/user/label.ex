@@ -1,6 +1,5 @@
 defmodule TodoApi.Schema.User.Label do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use TodoApi.Api, :schema
   alias TodoApi.Schema.User.Label
   alias TodoApi.Schema.User
   alias TodoApi.Schema.User.Todo
@@ -20,4 +19,10 @@ defmodule TodoApi.Schema.User.Label do
     |> cast(attrs, [:text])
     |> validate_required([:text])
   end
+
+  def add_changeset(%User{}=user, %Todo{}=todo, params \\ %{}) do
+    
+  end
+
+
 end
