@@ -28,7 +28,7 @@ defmodule LaVoyage.Db.UserTest do
     test "requires a password with appropriate properties" do
       bad_pass = %{
         email: "brad@example.com",
-        pass: foo
+        pass: "foo"
       }
       changeset = User.signup_changeset(%User{}, bad_pass)
       assert !changeset.valid?
