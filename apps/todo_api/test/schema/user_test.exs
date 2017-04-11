@@ -14,6 +14,7 @@ defmodule LaVoyage.Db.UserTest do
   describe "signup changeset" do
     test "works with valid arguments" do
       changeset = User.signup_changeset(%User{}, @valid_signup_attrs)
+      IO.inspect(changeset)
       assert changeset.valid?
     end
 
@@ -24,7 +25,7 @@ defmodule LaVoyage.Db.UserTest do
         password_confirmation: "asfga67585ASDF"
       }
       changeset = User.signup_changeset(%User{}, no_email)
-      assert !changeset.valid?
+      refute changeset.valid?
     end
 
     test "requires a password and password_confirmation to match" do
@@ -34,7 +35,7 @@ defmodule LaVoyage.Db.UserTest do
         password_confirmation: "asfga67585ASDF"
       }
       changeset = User.signup_changeset(%User{}, bad_pass)
-      assert !changeset.valid?
+      refute changeset.valid?
     end
 
     test "requires a password with appropriate properties" do
@@ -45,7 +46,7 @@ defmodule LaVoyage.Db.UserTest do
 
       }
       changeset = User.signup_changeset(%User{}, bad_pass)
-      assert !changeset.valid?
+      refute changeset.valid?
     end
 
 

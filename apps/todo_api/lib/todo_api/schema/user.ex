@@ -22,9 +22,9 @@ defmodule TodoApi.Web.TodoApi.Schema.User do
   """
   def signup_changeset(struct, params \\ %{}) do
     struct
-      |> cast(params, [:uid, :email, :password, :password_confirmation])
-      |> validate_required([:uid, :password, :password_confirmation])
-      |> unique_constraint(:uid)
+      |> cast(params, [:email, :password, :password_confirmation])
+      |> validate_required([:password, :password_confirmation])
+      |> password_and_confirmation_matches()
       |> unique_constraint(:email)
   end
 
@@ -43,10 +43,12 @@ defmodule TodoApi.Web.TodoApi.Schema.User do
   end
 
   @docp """
-
+    generates the password hash
   """
   def generate_password_hash(changeset) do
-    
+    password = get_change(changeset, :password)
+    hash = Comeonin.Bcrypt.hashpwsalt(password)
+    changeset |> put_change(:password, hash)
   end
 
 
