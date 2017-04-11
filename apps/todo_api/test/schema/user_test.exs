@@ -14,7 +14,6 @@ defmodule LaVoyage.Db.UserTest do
   describe "signup changeset" do
     test "works with valid arguments" do
       changeset = User.signup_changeset(%User{}, @valid_signup_attrs)
-      IO.inspect(changeset)
       assert changeset.valid?
     end
 

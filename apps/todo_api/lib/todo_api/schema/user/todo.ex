@@ -1,5 +1,5 @@
 defmodule TodoApi.Web.TodoApi.Schema.User.Todo do
-  use Ecto.Schema
+  use TodoApi.Api, :schema
   alias TodoApi.Web.TodoApi.Schema.User
 
   schema "todos" do
@@ -11,4 +11,29 @@ defmodule TodoApi.Web.TodoApi.Schema.User.Todo do
 
     timestamps()
   end
+
+  @doc"""
+    creates a todo
+    > user = Repo.get(User, id)
+    > todo = user |> Todo.create_changeset(%{
+      content: "do the laundry",
+      description: "it needs to be nice and light"
+    })
+  """
+  def create_changeset(%User{}=user, params \\ %{}) do
+    %__MODULE__{}
+      |> cast(params, [:content, :description, :done])
+      |> validate_required([:content])
+  end
+
+  @doc"""
+    updates the todo. must have an existing id
+  """
+  def update_changeset(struct, params \\%{}) do
+    struct
+      |> cast(params, [:done, :content, :description])
+  end
+
+
+
 end
