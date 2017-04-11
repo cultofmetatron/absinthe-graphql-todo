@@ -6,7 +6,8 @@ defmodule LaVoyage.Db.UserTest do
   @valid_attrs %{uid: "some content"}
   @valid_signup_attrs %{
     email: "foobar@example.com",
-    password: "foobar677"
+    password: "foobar677",
+    password_confirmation: "foobar677"
   }
   @invalid_attrs %{}
 
@@ -19,16 +20,29 @@ defmodule LaVoyage.Db.UserTest do
     test "requires a valid email" do
       no_email = %{
         email: "brad",
-        password: "asfga67585ASDF"
+        password: "asfga67585ASDF",
+        password_confirmation: "asfga67585ASDF"
       }
       changeset = User.signup_changeset(%User{}, no_email)
+      assert !changeset.valid?
+    end
+
+    test "requires a password and password_confirmation to match" do
+      bad_pass = %{
+        email: "brad@example.com",
+        password: "asfga67585ASDF",
+        password_confirmation: "asfga67585ASDF"
+      }
+      changeset = User.signup_changeset(%User{}, bad_pass)
       assert !changeset.valid?
     end
 
     test "requires a password with appropriate properties" do
       bad_pass = %{
         email: "brad@example.com",
-        pass: "foo"
+        password: "foo",
+        password_confirmation: "foo"
+
       }
       changeset = User.signup_changeset(%User{}, bad_pass)
       assert !changeset.valid?
