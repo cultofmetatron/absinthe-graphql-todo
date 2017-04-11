@@ -21,7 +21,7 @@ defmodule TodoApi.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {TodoApi.Application, []},
-     extra_applications: [:logger]]
+     extra_applications: [:logger, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -32,8 +32,11 @@ defmodule TodoApi.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:postgrex, ">= 0.0.0"},
-     {:ecto, "~> 2.1-rc"}]
+    [
+     {:postgrex, ">= 0.0.0"},
+     {:ecto, "~> 2.1-rc"},
+     {:comeonin, "~> 3.0"}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
