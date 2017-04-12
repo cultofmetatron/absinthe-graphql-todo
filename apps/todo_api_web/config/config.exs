@@ -30,3 +30,8 @@ config :phoenix, :generators,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+
+
+config :todo_api_web, :joken,
+  secret: "asfgaksdgfkuasygdkufgadskfglglg2343m2vrmv3kr32riy3v",
+  issuer: 123456789

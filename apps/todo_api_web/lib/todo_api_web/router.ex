@@ -11,6 +11,9 @@ defmodule TodoApi.Web.Router do
 
   pipeline :api do
     #plug :accepts, ["json"]
+    #plug Joken.Plug, verify: &TodoApi.Web.JwtManager.verify_function/0
+    plug TodoApi.Web.JwtManager
+    plug TodoApi.Web.Authenticate
   end
 
   scope "/api" do

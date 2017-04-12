@@ -55,7 +55,9 @@ config :todo_api_web, TodoApi.Web.Endpoint,
 #
 #     config :todo_api_web, TodoApi.Web.Endpoint, server: true
 #
-
+config :todo_api_web, :joken,
+  secret: "asfgaksdgfkuasygdkufgadskfglglg2343m2vrmv3kr32riy3v",
+  issuer: 123456789
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"
