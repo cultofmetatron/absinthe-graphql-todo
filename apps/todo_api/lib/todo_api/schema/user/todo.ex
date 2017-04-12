@@ -1,6 +1,8 @@
 defmodule TodoApi.Schema.User.Todo do
   use TodoApi.Api, :schema
   alias TodoApi.Schema.User
+  alias TodoApi.Schema.User.Todo
+  alias TodoApi.Schema.User.Label
 
   schema "todos" do
     field :content, :string
@@ -8,7 +10,7 @@ defmodule TodoApi.Schema.User.Todo do
     field :done, :boolean, default: false
     #field :owner, :id, references
     belongs_to :user, User, foreign_key: :owner_id
-
+    has_many :labels, Label
     timestamps()
   end
 
@@ -36,6 +38,12 @@ defmodule TodoApi.Schema.User.Todo do
       |> cast(params, [:done, :content, :description])
   end
 
-
+ @doc"""
+    return all the todos annotated with the labels attached to them
+  """
+  def find_todos_with_label(%User{}=user) do
+    from(t in assoc(user, :todos))
+      |> preload(:labels)
+  end 
 
 end

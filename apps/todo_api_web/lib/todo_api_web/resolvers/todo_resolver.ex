@@ -1,9 +1,10 @@
 defmodule TodoApi.Web.TodoResolver do
   alias TodoApi.Schema.User.Todo
-
+  import Ecto.Query
   def all(_args, %{context: %{current_user: current_user}} = info) do
     #IO.inspect(current_user)
-    {:ok, TodoApi.Repo.all(Todo)}
+    current_user |> Repo.preload(:todos)
+    {:ok, Repo.all(Todo)}
   end
 
   @doc"""

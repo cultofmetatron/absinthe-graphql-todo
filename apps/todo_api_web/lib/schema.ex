@@ -36,10 +36,11 @@ defmodule TodoApi.Web.Schema do
 
   end
 
+  @doc"""
+    middlware to ensure that the request has an authenticated user
+  """
   def require_authenticated(fun) do
     fn source, args, info ->
-      IO.puts("in your resolver")
-      IO.inspect(info)
       case info do
         %{context: %{login_status: :logged_in, current_user: %User{}=user}} ->
           Absinthe.Resolution.call(fun, source, args, info)
@@ -48,6 +49,10 @@ defmodule TodoApi.Web.Schema do
     end
   end
 
+  @doc"""
+    interceptsecto changsets and converts them into a format that 
+    absinthe can render in graphql
+  """
   def handle_errors(fun) do
     fn source, args, info ->
       case Absinthe.Resolution.call(fun, source, args, info) do

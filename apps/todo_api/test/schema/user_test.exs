@@ -51,7 +51,6 @@ defmodule TodoApi.Test.Schema.UserTest do
 
   end
 
-
   #test "changeset with invalid attributes" do
   #  changeset = User.changeset(%User{}, @invalid_attrs)
   #  refute changeset.valid?
