@@ -14,5 +14,14 @@ defmodule TodoApi.Web.Schema.Types do
     field :id, :id
     field :content, :string
     field :description, :string
+    field :labels, list_of(:label)
   end
+
+  @desc "a label"
+  object :label do
+    field :id, :id
+    field :text, :string
+    field :todos, list_of(:todo)
+  end
+
 end
