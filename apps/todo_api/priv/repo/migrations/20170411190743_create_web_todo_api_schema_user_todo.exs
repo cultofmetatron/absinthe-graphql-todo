@@ -13,5 +13,6 @@ defmodule TodoApi.Web.Repo.Migrations.CreateTodoApi.Web.TodoApi.Schema.User.Todo
     end
 
     create index(:todos, [:owner_id])
+    
   end
 end

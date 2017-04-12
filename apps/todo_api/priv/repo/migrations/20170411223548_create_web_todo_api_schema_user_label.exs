@@ -13,6 +13,7 @@ defmodule TodoApi.Web.Repo.Migrations.CreateTodoApi.Web.TodoApi.Schema.User.Labe
 
     create index(:labels, [:user_id])
     create index(:labels, [:todo_id])
+    create index(:labels, [:text])
     create unique_index(:labels, [:user_id, :todo_id, :text], name: :user_todo_text)
   end
 end
