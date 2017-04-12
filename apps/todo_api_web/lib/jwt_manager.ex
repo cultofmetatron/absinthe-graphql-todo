@@ -8,7 +8,6 @@ defmodule TodoApi.Web.JwtManager do
 
   
   def call(conn, _) do
-    IO.inspect("jwt manager")
     token = get_token(conn)
     if token do
       case verify_jwt(token) do
@@ -34,7 +33,6 @@ defmodule TodoApi.Web.JwtManager do
     case Repo.get(User, user_id) do
       nil -> put_invalid_token(conn)
       user ->
-        IO.puts("HELLOOOOOOOOO NURSE")
         put_private(conn, :absinthe, %{context: %{
             login_status: :logged_in,
             current_user: user
@@ -75,15 +73,6 @@ defmodule TodoApi.Web.JwtManager do
       |> Joken.with_aud(iss)
       |> sign()
       |> get_compact()
-  end
-
-  def verify_function() do
-    secret = Application.get_env(:todo_api_web, :joken)[:secret]
-    iss = Application.get_env(:todo_api_web, :joken)[:issuer]
-    %Joken.Token{}
-    |> with_json_module(Poison)
-    |> Joken.with_signer(hs256(secret))
-    |> Joken.with_aud(iss)
   end
 
 end
