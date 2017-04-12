@@ -28,8 +28,6 @@ defmodule TodoApi.Web.JwtManager do
   end
 
   def get_user(conn, user_id) do
-    IO.inspect(conn)
-    IO.puts(user_id)
     case Repo.get(User, user_id) do
       nil -> put_invalid_token(conn)
       user ->

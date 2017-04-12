@@ -1,12 +1,17 @@
 defmodule TodoApi.Web.Schema do
   use Absinthe.Schema
   import_types TodoApi.Web.Schema.Types
+  alias TodoApi.Schema.User
 
   query do
     
     field :todos, list_of(:todo) do
-      resolve &TodoApi.Web.TodoResolver.all/2
+      (&TodoApi.Web.TodoResolver.all/2)
+        |> handle_errors()
+        |> require_authenticated()
+        |> resolve()
     end
+
   end
 
   mutation do
@@ -20,7 +25,7 @@ defmodule TodoApi.Web.Schema do
         |> resolve()
     end
 
-    @desc"sing the user in"
+    @desc"sign the user in"
     field :signin, type: :user do
       arg :email, non_null(:string)
       arg :password, non_null(:string)
@@ -29,6 +34,18 @@ defmodule TodoApi.Web.Schema do
         |> resolve()
     end
 
+  end
+
+  def require_authenticated(fun) do
+    fn source, args, info ->
+      IO.puts("in your resolver")
+      IO.inspect(info)
+      case info do
+        %{context: %{login_status: :logged_in, current_user: %User{}=user}} ->
+          Absinthe.Resolution.call(fun, source, args, info)
+        _ -> {:error, "Unauthorized"}
+      end
+    end
   end
 
   def handle_errors(fun) do
