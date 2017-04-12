@@ -13,6 +13,8 @@ defmodule TodoApi.Web.Router do
     plug :accepts, ["json"]
   end
 
+  forward "/api", Absinthe.Plug, schema: TodoApi.Web.Schema
+
   scope "/", TodoApi.Web do
     pipe_through :browser # Use the default browser stack
 

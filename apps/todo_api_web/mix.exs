@@ -22,7 +22,7 @@ defmodule TodoApi.Web.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {TodoApi.Web.Application, []},
-     extra_applications: [:logger]]
+     extra_applications: [:logger, :absinthe, :absinthe_plug]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +40,11 @@ defmodule TodoApi.Web.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:todo_api, in_umbrella: true},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:absinthe, "~> 1.2.0"},
+     {:absinthe_plug, "~> 1.2.3"},
+     {:poison, "~> 3.0"}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
