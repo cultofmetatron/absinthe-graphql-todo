@@ -10,10 +10,13 @@ defmodule TodoApi.Web.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    #plug :accepts, ["json"]
   end
 
-  forward "/api", Absinthe.Plug, schema: TodoApi.Web.Schema
+  scope "/api" do
+    pipe_through :api
+    forward "/", Absinthe.Plug, schema: TodoApi.Web.Schema
+  end
 
   scope "/", TodoApi.Web do
     pipe_through :browser # Use the default browser stack
