@@ -11,7 +11,7 @@ defmodule TodoApi.Web.TodoResolverTest do
   alias TodoApi.Schema.User
   alias TodoApi.Schema.User.Todo
   alias TodoApi.Web.UserResolver
-  alias TodoApi.Web.TodoResolve
+  alias TodoApi.Web.TodoResolver
 
   @valid_user_attrs_signup %{
     email: "example@foobar.com",
@@ -24,9 +24,26 @@ defmodule TodoApi.Web.TodoResolverTest do
     {:ok, %{user: user}}
   end
 
+
   describe "create a todo" do
-    test "it should create a todo" do
-      assert 5 == 5
+    test "it should create a todo", %{user: user} do
+      {:ok, todo} = TodoResolver.create(%{
+        content: "do the laundry",
+        description: "laundry day is a very dangerous day"
+      },  %{context: %{current_user: user}})
+
+      assert todo.content == "do the laundry"
+      user = user |> Repo.preload(:todos)
+      assert Enum.count(user.todos) == 1
+    end
+
+    test "it reject creation with ad arguemnts", %{user: user} do
+      assert {:error, changeset} = TodoResolver.create(%{
+        content: "",
+        description: "laundry day is a very dangerous day"
+      }, %{context: %{current_user: user}})
+
+      assert [content: {"can't be blank", [validation: :required]}] = changeset.errors
     end
   end
 

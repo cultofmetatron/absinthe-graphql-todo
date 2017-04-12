@@ -15,6 +15,7 @@ defmodule TodoApi.Web.Schema do
   end
 
   mutation do
+    # User operations
     @desc"signup a user"
     field :signup, type: :user do
       arg :email, non_null(:string)
@@ -31,6 +32,28 @@ defmodule TodoApi.Web.Schema do
       arg :password, non_null(:string)
       (&TodoApi.Web.UserResolver.signin/2)
         |> handle_errors()
+        |> resolve()
+    end
+
+    # Todo Operations
+    field :create_todo, type: :todo do
+      arg :content, non_null(:string)
+      arg :description, :string
+      arg :done, :boolean
+      (&TodoApi.Web.TodoResolver.create/2)
+        |> handle_errors()
+        |> require_authenticated()
+        |> resolve()
+    end
+
+    field :update_todo, type: :todo do
+      arg :id, non_null(:id)
+      arg :content, :string
+      arg :description, :string
+      arg :done, :boolean
+      (&TodoApi.Web.TodoResolver.update/2)
+        |> handle_errors()
+        |> require_authenticated()
         |> resolve()
     end
 

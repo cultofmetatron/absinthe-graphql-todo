@@ -14,6 +14,7 @@ defmodule TodoApi.Web.Schema.Types do
     field :id, :id
     field :content, :string
     field :description, :string
+    field :done, :boolean
     field :labels, list_of(:label)
   end
 
