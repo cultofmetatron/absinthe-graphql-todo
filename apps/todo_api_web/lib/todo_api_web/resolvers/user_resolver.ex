@@ -5,9 +5,10 @@ defmodule TodoApi.Web.UserResolver do
   
   import Joken
 
-  def find(%{id: id}, _info) do
-    case TodoApi.Repo.get(User, id) do
-      nil -> {:error, "User id #{id} not found"}
+  def find(_args, %{context: %{current_user: user}}=info) do
+    #somewhat wasterful as we shold be loading this conditionally but I can solve that later
+    case TodoApi.Repo.get(User, user.id) |> Repo.preload(:todos) do
+      nil -> {:error, "User id #{user.id} not found"}
       user -> {:ok, user}
     end
   end

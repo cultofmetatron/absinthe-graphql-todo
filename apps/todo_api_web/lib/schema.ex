@@ -4,6 +4,13 @@ defmodule TodoApi.Web.Schema do
   alias TodoApi.Schema.User
 
   query do
+
+    field :user, :user do
+      (&TodoApi.Web.UserResolver.find/2)
+        |> handle_errors()
+        |> require_authenticated()
+        |> resolve()
+    end
     
     field :todos, list_of(:todo) do
       (&TodoApi.Web.TodoResolver.all/2)
@@ -52,6 +59,14 @@ defmodule TodoApi.Web.Schema do
       arg :description, :string
       arg :done, :boolean
       (&TodoApi.Web.TodoResolver.update/2)
+        |> handle_errors()
+        |> require_authenticated()
+        |> resolve()
+    end
+
+    field :delete_todo, type: :todo do
+      arg :id, non_null(:id)
+      (&TodoApi.Web.TodoResolver.delete/2)
         |> handle_errors()
         |> require_authenticated()
         |> resolve()

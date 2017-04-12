@@ -10,6 +10,8 @@ defmodule TodoApi.Web.TodoResolver do
     {:ok, todos}
   end
 
+  
+
   @doc"""
     creates a todo
   """
@@ -18,8 +20,8 @@ defmodule TodoApi.Web.TodoResolver do
     Todo.create_changeset(user, params) |> Repo.insert()
   end
 
+  #note, I can prolly pullsome of this repeat logic into a seperate function
   def update(%{id: id} = params, %{context: %{current_user: user}}) do
-    {:error, "not implimented yet" }
     case Repo.get(Todo, id) do
       nil -> {:error, "todo does not exist"}
       %Todo{}=todo ->
@@ -32,8 +34,18 @@ defmodule TodoApi.Web.TodoResolver do
     end
   end
 
-  def delete(params, %{context: %{current_user: user}}) do
-    {:error, "not implimented yet" }    
+  def delete(%{id: id}, %{context: %{current_user: user}}) do
+    case Repo.get(Todo, id) do
+      nil -> {:error, "todo does not exist"}
+      %Todo{}=todo ->
+        if todo.owner_id == user.id do
+           val = Repo.delete(todo)
+           IO.inspect(val)
+           val
+        else
+          {:error, "todo does not exist"}
+        end
+    end
   end
 
 end
