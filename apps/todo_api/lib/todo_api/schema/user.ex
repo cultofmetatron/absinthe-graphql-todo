@@ -49,6 +49,7 @@ defmodule TodoApi.Schema.User do
     end
   end
 
+
   @docp """
     generates the password hash
   """
@@ -56,6 +57,10 @@ defmodule TodoApi.Schema.User do
     password = get_change(changeset, :password)
     hash = Comeonin.Bcrypt.hashpwsalt(password)
     changeset |> put_change(:password_hash, hash)
+  end
+
+  def check_password(%User{password_hash: password_hash}=user, password) do
+    Comeonin.Bcrypt.checkpw(password, password_hash)
   end
 
   def find_labels(%User{}=user) do
