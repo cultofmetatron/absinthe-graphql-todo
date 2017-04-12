@@ -43,7 +43,8 @@ defmodule TodoApi.Web.Mixfile do
      {:cowboy, "~> 1.0"},
      {:absinthe, "~> 1.2.0"},
      {:absinthe_plug, "~> 1.2.3"},
-     {:poison, "~> 3.0"}
+     {:poison, "~> 3.0"},
+     {:joken, "~> 1.4"}
     ]
   end
 

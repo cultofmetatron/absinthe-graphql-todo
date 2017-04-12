@@ -5,6 +5,7 @@ defmodule TodoApi.Web.Schema.Types do
   object :user do
     field :id, :id
     field :email, :string
+    field :jwt, :string
     field :todos, list_of(:todo)
   end
 
