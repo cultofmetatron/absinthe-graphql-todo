@@ -7,7 +7,7 @@ defmodule TodoApi.Web.Repo.Migrations.CreateTodoApi.Web.TodoApi.Schema.User.Todo
       add :content, :string
       add :description, :string
       add :done, :boolean, default: false, null: false
-      add :owner_id, references(:users, on_delete: :delete_all, type: :uuid)
+      add :owner_id, references(:users, on_delete: :delete_all, type: :uuid), null: false
 
       timestamps()
     end

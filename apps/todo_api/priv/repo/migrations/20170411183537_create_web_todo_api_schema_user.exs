@@ -9,6 +9,6 @@ defmodule TodoApi.Web.Repo.Migrations.CreateTodoApi.Web.TodoApi.Schema.User do
 
       timestamps()
     end
-
+    create unique_index(:users, [:email])
   end
 end

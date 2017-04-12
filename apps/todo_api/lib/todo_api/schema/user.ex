@@ -26,12 +26,13 @@ defmodule TodoApi.Schema.User do
     struct
       |> cast(params, [:email, :password, :password_confirmation])
       |> validate_format(:email, ~r/@/)
+      |> unique_constraint(:email)
       |> validate_length(:password, min: 5)
       |> validate_required([:password, :password_confirmation])
       |> password_and_confirmation_matches()
       |> generate_password_hash()
       |> validate_required([:password_hash])
-      |> unique_constraint(:email)
+      
   end
 
   @docp """
@@ -69,9 +70,10 @@ defmodule TodoApi.Schema.User do
 
   """
   def find_todos_by_label(%User{}=user, labels) do
-    from(todo in assoc(user: todos))
-      |> join([todo], label in assoc(todo, :labels))
-      |> where([todo, label], label.text in ^labels)
+    from(t in assoc(user, :todos))
+      |> join(:full, [t], l in assoc(t, :labels))
+      |> where([t, l], l.text in ^labels)
+      |> select([t, l], %{todo: t, label: t.text})
   end
 
 end
