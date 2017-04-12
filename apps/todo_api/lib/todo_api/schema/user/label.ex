@@ -28,5 +28,4 @@ defmodule TodoApi.Schema.User.Label do
       |> validate_length(:text, min: 2)
   end
 
-
 end

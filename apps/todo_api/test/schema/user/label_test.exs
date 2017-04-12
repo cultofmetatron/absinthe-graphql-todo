@@ -42,5 +42,21 @@ defmodule TodoApi.Test.Schema.LabelTest do
 
   end
 
+  describe "remove todo from label" do
+
+    setup %{user: user, todo: todo} do
+
+
+      %{user: user, todo: todo}
+    end
+
+    setup do
+      
+    end
+    
+
+
+  end
+
  
 end

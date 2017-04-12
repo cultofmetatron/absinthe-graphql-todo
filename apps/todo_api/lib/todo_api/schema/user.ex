@@ -1,6 +1,6 @@
 defmodule TodoApi.Schema.User do
   use TodoApi.Api, :schema
-
+  alias TodoApi.Schema.User
   alias TodoApi.Schema.User.Todo
   alias TodoApi.Schema.User.Label
   schema "users" do
@@ -57,7 +57,21 @@ defmodule TodoApi.Schema.User do
     changeset |> put_change(:password_hash, hash)
   end
 
+  def find_labels(%User{}=user) do
+    from(l in assoc(user, :labels))
+      |> distinct([l], l.text)
+  end
 
+  @doc"""
+    takes a user and a list of text labels and returns all todos that join them
+    returns a queriable
+    > User.find_todos_by_label(user, ["yolo", "faith hilling"]) |> Repo.all()
 
+  """
+  def find_todos_by_label(%User{}=user, labels) do
+    from(todo in assoc(user: todos))
+      |> join([todo], label in assoc(todo, :labels))
+      |> where([todo, label], label.text in ^labels)
+  end
 
 end
