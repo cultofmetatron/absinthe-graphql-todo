@@ -24,19 +24,24 @@ defmodule TodoApi.Web.TodoResolver do
   """
   def create(%{labels: labels}=params, %{context: %{current_user: user}}) do
     #use multi for pushing in multiple transactions
-    Repo.transaction(fn() -> 
+    transaction = Repo.transaction(fn() -> 
       case Todo.create_changeset(user, params) |> Repo.insert() do
         {:error, message } -> Repo.rollback(message)
-        {:ok, %Todo{id: id}}=todo ->
-          label_status = Enum.map(labels, fn(label) -> 
+        {:ok, %Todo{id: id}=todo} ->
+          label_status = Enum.map(labels, fn(label) ->
+            IO.inspect(todo)
             case Label.create_changeset(user, todo, %{text: label}) |> Repo.insert do
               {:error, message } -> Repo.rollback(message)
               {:ok, label} -> {:ok, label}
             end
           end)
-        {:ok, todo}
+        todo
       end
     end)
+    case transaction do
+      {:error, message} -> {:error, message}
+      {:ok, todo} -> {:ok, todo |> Repo.preload(:labels)}
+    end
   end
 
   def create(params, %{context: %{current_user: user}}) do

@@ -37,6 +37,20 @@ defmodule TodoApi.Web.TodoResolverTest do
       assert Enum.count(user.todos) == 1
     end
 
+    test "it should create a todo withlabels", %{user: user} do
+      {:ok, todo} = TodoResolver.create(%{
+        content: "do the laundry",
+        description: "laundry day is a very dangerous day",
+        labels: ["yolo", "swag"]
+      },  %{context: %{current_user: user}})
+      IO.inspect(todo)
+      assert todo.content == "do the laundry"
+      
+      
+      user = user |> Repo.preload(:todos)
+      assert Enum.count(user.todos) == 1
+    end
+
     test "it reject creation with ad arguemnts", %{user: user} do
       assert {:error, changeset} = TodoResolver.create(%{
         content: "",
