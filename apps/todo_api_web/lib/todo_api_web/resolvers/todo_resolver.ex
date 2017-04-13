@@ -13,7 +13,6 @@ defmodule TodoApi.Web.TodoResolver do
   import Ecto.Query
 
   def all(_args, %{context: %{current_user: current_user}}=info) do
-    IO.inspect(current_user)
     todos = current_user
       |> Todo.find_todos_with_label()
       |> Repo.all()
@@ -32,7 +31,6 @@ defmodule TodoApi.Web.TodoResolver do
         {:error, message } -> Repo.rollback(message)
         {:ok, %Todo{id: id}=todo} ->
           label_status = Enum.map(labels, fn(label) ->
-            IO.inspect(todo)
             case Label.create_changeset(user, todo, %{text: label}) |> Repo.insert do
               {:error, message } -> Repo.rollback(message)
               {:ok, label} -> {:ok, label}

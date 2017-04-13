@@ -44,7 +44,6 @@ defmodule TodoApi.Web.TodoResolverTest do
         description: "laundry day is a very dangerous day",
         labels: ["yolo", "swag"]
       },  %{context: %{current_user: user}})
-      IO.inspect(todo)
       assert todo.content == "do the laundry"
       
       

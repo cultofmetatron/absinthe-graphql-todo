@@ -10,7 +10,6 @@ defmodule TodoApi.Web.Authenticate do
   def init(opts), do: opts
 
   def call(conn, _) do
-    IO.inspect(conn)
     conn
   end
 
