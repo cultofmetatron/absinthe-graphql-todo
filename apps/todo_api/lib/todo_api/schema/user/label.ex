@@ -26,6 +26,7 @@ defmodule TodoApi.Schema.User.Label do
       |> put_assoc(:todo, todo)
       |> validate_required([:text])
       |> validate_length(:text, min: 2)
+      |> unique_constraint(:text, name: :user_todo_text, message: "label already exists for that todo!")
   end
 
 end

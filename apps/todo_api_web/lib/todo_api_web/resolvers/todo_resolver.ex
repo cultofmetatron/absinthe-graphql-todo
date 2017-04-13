@@ -75,4 +75,32 @@ defmodule TodoApi.Web.TodoResolver do
     end
   end
 
+  def add_label(%{id: id, label: label}, %{context: %{current_user: user}}) do
+    get_todo_for_owner(id, user, fn(todo) -> 
+      Label.create_changeset(user, todo, label) |> Repo.insert()
+    end)
+  end
+
+  def remove_label(%{id: id, labels: text}, %{context: %{current_user: user}}) do
+    get_todo_for_owner(id, user, fn(todo) -> 
+      from(l in Ecto.Query.assoc(todo, :labels))
+        |> where([l], l.text == ^text)
+        |> first()
+        |> Repo.delete()
+    end)
+  end
+
+  defp get_todo_for_owner(id, user, func) do
+    case Repo.get(Todo, id) do
+      nil -> {:error, "todo does not exist"}
+      %Todo{}=todo ->
+        if todo.owner_id == user.id do
+           func.call(todo)
+        else
+          {:error, "todo does not exist"}
+        end
+    end
+  end
+
+
 end
