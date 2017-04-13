@@ -47,12 +47,37 @@ defmodule TodoApi.Web.TodoResolverTest do
     end
   end
 
-  describe "update a todo" do
-      
-  end
+  describe "modifying a todo" do
+    
+    setup %{user: user} do
+      todo = Todo.create_changeset(user, %{
+        content: "I made a todo!!"
+      }) |> Repo.insert!()
+      {:ok, %{ todo: todo }}      
+    end
 
-  describe "delete a todo" do
-      
+    test "updates a todo", %{user: user, todo: todo} do
+      assert {:ok, todo} = TodoApi.Web.TodoResolver.update(%{
+        id: todo.id,
+        content: "updated content!",
+        done: true
+      }, %{context: %{current_user: user}})
+
+      assert todo.content == "updated content!"
+      assert todo.done
+
+
+    end
+
+    test "deletes a todo", %{user: user, todo: todo} do
+      assert {:ok, todo} = TodoApi.Web.TodoResolver.delete(%{
+        id: todo.id,
+      }, %{context: %{current_user: user}})
+      #refute that it exists now that we deleted it
+      refute Repo.get(Todo, todo.id)
+
+    end
+
   end
   
 end

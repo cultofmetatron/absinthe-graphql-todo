@@ -16,7 +16,6 @@ defmodule TodoApi.Web.TodoResolver do
     creates a todo
   """
   def create(params, %{context: %{current_user: user}}) do
-    IO.inspect(user)
     Todo.create_changeset(user, params) |> Repo.insert()
   end
 
@@ -40,7 +39,6 @@ defmodule TodoApi.Web.TodoResolver do
       %Todo{}=todo ->
         if todo.owner_id == user.id do
            val = Repo.delete(todo)
-           IO.inspect(val)
            val
         else
           {:error, "todo does not exist"}
