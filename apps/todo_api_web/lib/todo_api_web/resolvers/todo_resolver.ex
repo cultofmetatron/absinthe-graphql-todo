@@ -25,7 +25,7 @@ defmodule TodoApi.Web.TodoResolver do
     creates a todo
   """
   def create(%{labels: labels}=params, %{context: %{current_user: user}}) do
-    #use multi for pushing in multiple transactions
+    #rolling it all into a transaction
     transaction = Repo.transaction(fn() -> 
       case Todo.create_changeset(user, params) |> Repo.insert() do
         {:error, message } -> Repo.rollback(message)
