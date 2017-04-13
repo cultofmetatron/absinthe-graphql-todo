@@ -12,6 +12,16 @@ defmodule TodoApi.Web.TodoResolver do
   import Ecto.Changeset
   import Ecto.Query
 
+  def all(%{labels: labels}, %{context: %{current_user: user}}=info) do
+    todos = from(t in assoc(user, :todos))
+      |> join(:left, [t], l in assoc(t, :labels))
+      |> where([t, l], l.text in ^labels)
+      |> preload([t, l], [:labels])
+      |> distinct(true)
+      |> select([t], t)
+      |> Repo.all()
+    {:ok, todos}
+  end
   def all(_args, %{context: %{current_user: current_user}}=info) do
     todos = current_user
       |> Todo.find_todos_with_label()
@@ -19,7 +29,6 @@ defmodule TodoApi.Web.TodoResolver do
     {:ok, todos}
   end
 
-  
 
   @doc"""
     creates a todo

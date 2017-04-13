@@ -13,6 +13,7 @@ defmodule TodoApi.Web.Schema do
     end
     
     field :todos, list_of(:todo) do
+      arg :labels, list_of(:string)
       (&TodoApi.Web.TodoResolver.all/2)
         |> handle_errors()
         |> require_authenticated()
@@ -68,6 +69,24 @@ defmodule TodoApi.Web.Schema do
     field :delete_todo, type: :todo do
       arg :id, non_null(:id)
       (&TodoApi.Web.TodoResolver.delete/2)
+        |> handle_errors()
+        |> require_authenticated()
+        |> resolve()
+    end
+
+    field :add_label, type: :label do
+      arg :id, non_null(:id)
+      arg :label, non_null(:string)
+      (&TodoApi.Web.TodoResolver.add_label/2)
+        |> handle_errors()
+        |> require_authenticated()
+        |> resolve()
+    end
+
+    field :remove_label, type: :label do
+      arg :id, non_null(:id)
+      arg :label, non_null(:string)
+      (&TodoApi.Web.TodoResolver.remove_label/2)
         |> handle_errors()
         |> require_authenticated()
         |> resolve()

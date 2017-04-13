@@ -120,5 +120,45 @@ defmodule TodoApi.Web.TodoResolverTest do
     end
 
   end
+
+  describe "finding todos" do
+    setup %{user: user} do
+      {:ok, _} = TodoResolver.create(%{
+        content: "todo1",
+        labels: ["yolo", "tag1", "SWBeatsItsCompetitors"]
+      },  %{context: %{current_user: user}})
+      {:ok, _} = TodoResolver.create(%{
+        content: "todo2",
+        labels: ["yolo", "tag1"]
+      },  %{context: %{current_user: user}})
+      {:ok, todo} = TodoResolver.create(%{
+        content: "laundry time",
+        description: "laundry day is a very dangerous day",
+        labels: ["yolo", "laundry"]
+      },  %{context: %{current_user: user}})
+      {:ok, todo} = TodoResolver.create(%{
+        content: "sit around",
+      },  %{context: %{current_user: user}})
+
+      :ok      
+    end
+
+    test "gets all the todos", %{user: user} do
+      assert {:ok, todos} = TodoResolver.all(%{}, %{context: %{current_user: user}})
+      assert Enum.count(todos) == 4
+    end
+
+    test "gets only todos with the label", %{user: user} do
+      assert {:ok, todos} = TodoResolver.all(%{labels: ["yolo", "laundry"]}, %{context: %{current_user: user}})
+      assert Enum.count(todos) == 3
+
+      assert {:ok, todos} = TodoResolver.all(%{labels: ["laundry"]}, %{context: %{current_user: user}})
+      assert Enum.count(todos) == 1
+
+      assert {:ok, todos} = TodoResolver.all(%{labels: ["laundry", "tag1"]}, %{context: %{current_user: user}})
+      assert Enum.count(todos) == 3
+    end
+
+  end
   
 end
