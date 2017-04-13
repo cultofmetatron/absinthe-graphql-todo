@@ -47,6 +47,7 @@ defmodule TodoApi.Web.Schema do
       arg :content, non_null(:string)
       arg :description, :string
       arg :done, :boolean
+      arg :labels, list_of(:string)
       (&TodoApi.Web.TodoResolver.create/2)
         |> handle_errors()
         |> require_authenticated()
