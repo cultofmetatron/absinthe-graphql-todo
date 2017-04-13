@@ -48,31 +48,17 @@ defmodule TodoApi.Web.TodoResolver do
     Todo.create_changeset(user, params) |> Repo.insert()
   end
 
-  #note, I can prolly pullsome of this repeat logic into a seperate function
   def update(%{id: id} = params, %{context: %{current_user: user}}) do
-    case Repo.get(Todo, id) do
-      nil -> {:error, "todo does not exist"}
-      %Todo{}=todo ->
-        if todo.owner_id == user.id do
-          Todo.update_changeset(todo, params)
-            |> Repo.update()
-        else
-          {:error, "todo does not exist"}
-        end
-    end
+    get_todo_for_owner(id, user, fn(todo) ->
+      Todo.update_changeset(todo, params)
+        |> Repo.update()
+    end)
   end
 
   def delete(%{id: id}, %{context: %{current_user: user}}) do
-    case Repo.get(Todo, id) do
-      nil -> {:error, "todo does not exist"}
-      %Todo{}=todo ->
-        if todo.owner_id == user.id do
-           val = Repo.delete(todo)
-           val
-        else
-          {:error, "todo does not exist"}
-        end
-    end
+    get_todo_for_owner(id, user, fn(todo) ->
+      Repo.delete(todo)
+    end)
   end
 
   def add_label(%{id: id, label: label}, %{context: %{current_user: user}}) do
@@ -90,12 +76,18 @@ defmodule TodoApi.Web.TodoResolver do
     end)
   end
 
+  @docp"""
+    takes an id for a todo and the user. it retrieves the todo from
+    the database and if the todo belongs to the current user, we pass the
+    retrieved todo into the callback. Wtherwise, we return an error saying it does
+    not exist.
+  """
   defp get_todo_for_owner(id, user, func) do
     case Repo.get(Todo, id) do
       nil -> {:error, "todo does not exist"}
       %Todo{}=todo ->
         if todo.owner_id == user.id do
-           func.call(todo)
+           func.(todo)
         else
           {:error, "todo does not exist"}
         end
