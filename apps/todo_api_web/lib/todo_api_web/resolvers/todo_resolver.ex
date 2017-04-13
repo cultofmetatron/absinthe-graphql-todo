@@ -7,6 +7,9 @@ defmodule TodoApi.Web.TodoResolver do
   alias TodoApi.Schema.User.Todo
   alias TodoApi.Schema.User.Label
   alias TodoApi.Repo
+  use Ecto.Schema
+  import Ecto
+  import Ecto.Changeset
   import Ecto.Query
 
   def all(_args, %{context: %{current_user: current_user}}=info) do
@@ -63,17 +66,20 @@ defmodule TodoApi.Web.TodoResolver do
 
   def add_label(%{id: id, label: label}, %{context: %{current_user: user}}) do
     get_todo_for_owner(id, user, fn(todo) -> 
-      Label.create_changeset(user, todo, label) |> Repo.insert()
+      Label.create_changeset(user, todo, %{text: label}) |> Repo.insert()
     end)
   end
 
-  def remove_label(%{id: id, labels: text}, %{context: %{current_user: user}}) do
-    get_todo_for_owner(id, user, fn(todo) -> 
-      from(l in Ecto.Query.assoc(todo, :labels))
+  def remove_label(%{id: id, label: text}, %{context: %{current_user: user}}) do
+    val = get_todo_for_owner(id, user, fn(todo) -> 
+      from(l in assoc(todo, :labels))
         |> where([l], l.text == ^text)
         |> first()
-        |> Repo.delete()
     end)
+    case val |> Repo.one() do
+      nil -> {:error, "label not applied to that todo"}
+      label -> label |> Repo.delete()
+    end
   end
 
   @docp"""

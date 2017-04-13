@@ -10,6 +10,7 @@ defmodule TodoApi.Web.TodoResolverTest do
   alias TodoApi.Repo
   alias TodoApi.Schema.User
   alias TodoApi.Schema.User.Todo
+  alias TodoApi.Schema.User.Label
   alias TodoApi.Web.UserResolver
   alias TodoApi.Web.TodoResolver
 
@@ -79,7 +80,34 @@ defmodule TodoApi.Web.TodoResolverTest do
 
       assert todo.content == "updated content!"
       assert todo.done
+    end
 
+    test "adds a label to the todo", %{user: user, todo: todo} do
+      assert {:ok, %Label{}=label} = TodoResolver.add_label(%{
+        id: todo.id,
+        label: "yoloswag"
+      }, %{context: %{current_user: user}})
+
+      todo = todo |> Repo.preload(:labels)
+      assert Enum.count(todo.labels) == 1
+    end
+
+    test "removes a label to the todo", %{user: user, todo: todo} do
+      assert {:ok, %Label{}=label} = TodoResolver.add_label(%{
+        id: todo.id,
+        label: "yoloswag"
+      }, %{context: %{current_user: user}})
+
+      todo = todo |> Repo.preload(:labels)
+      assert Enum.count(todo.labels) == 1
+
+      assert {:ok, %Label{}} = {:ok, %Label{}=label} = TodoResolver.remove_label(%{
+        id: todo.id,
+        label: "yoloswag"
+      }, %{context: %{current_user: user}})
+
+      todo = todo |> Repo.preload(:labels, force: true)
+      assert Enum.count(todo.labels) == 0
 
     end
 
