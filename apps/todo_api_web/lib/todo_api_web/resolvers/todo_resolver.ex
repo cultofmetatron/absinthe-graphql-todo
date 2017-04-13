@@ -1,4 +1,9 @@
 defmodule TodoApi.Web.TodoResolver do
+  @moduledoc""""
+    The todo resolver
+    proxies the graphql queries into our database queries
+  """
+
   alias TodoApi.Schema.User.Todo
   alias TodoApi.Repo
   import Ecto.Query

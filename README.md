@@ -11,9 +11,13 @@ TODOs
     4. edit todo - done
     5. add todo to label
 3. signup - done
-4. signin - 
-5. todo - create, update, delete
+4. signin - done
+5. todo -> create, update, delete - done
 6. add labels to todos - for grouping
+    * add labels to the todo on creation
+    * add label to a todo after the fact
+    * remove a label from a todo
+    * get all todos for a set of labels
 
 
 labels
