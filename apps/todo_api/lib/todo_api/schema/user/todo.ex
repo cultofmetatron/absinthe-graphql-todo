@@ -28,6 +28,7 @@ defmodule TodoApi.Schema.User.Todo do
       |> validate_required([:content])
       |> validate_length(:content, min: 1)
       |> unique_constraint(:text, name: :user_todo_text)
+      |> assoc_constraint(:user)
   end
 
   @doc"""

@@ -3,6 +3,9 @@ defmodule TodoApi.Schema.User do
   alias TodoApi.Schema.User
   alias TodoApi.Schema.User.Todo
   alias TodoApi.Schema.User.Label
+
+  #done_todos (from(t in Todo) |> where([t], t.done == true))
+
   schema "users" do
     field :email, :string
     field :password_hash, :string

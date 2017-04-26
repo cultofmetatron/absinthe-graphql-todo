@@ -28,6 +28,11 @@ module.exports = {
         query: {
           presets: ["es2015", "es2016", "es2017"]
         }
+      },
+      {
+        test: /\.elm$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        loader: 'elm-webpack'
       }
     ]
   }
