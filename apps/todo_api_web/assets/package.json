@@ -6,13 +6,20 @@
     "watch": "webpack --watch-stdin --progress --color"
   },
   "dependencies": {
+    "ace-css": "1.1",
     "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.0",
     "elm-webpack-loader": "^4.3.0",
+    "file-loader": "^0.11.1",
+    "font-awesome": "4",
     "jscs": "^3.0.7",
     "phoenix": "file:../../../deps/phoenix",
     "phoenix_html": "file:../../../deps/phoenix_html",
     "react": "^15.5.3",
-    "react-dom": "^15.5.3"
+    "react-dom": "^15.5.3",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack-dev-server": "^2.4.5"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
