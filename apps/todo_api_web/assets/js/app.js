@@ -21,5 +21,9 @@ import 'phoenix_html'
 
 import socket from "./socket"
 
+let Elm = require('./main.elm');
+let mountNode = document.getElementById('main');
+let app = Elm.Main.embed(mountNode);
+
 console.log('js loading successfully');
 
