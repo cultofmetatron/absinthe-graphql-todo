@@ -22,7 +22,11 @@ import 'phoenix_html'
 import socket from "./socket";
 import banji from './banji';
 
-banji();
+import React from 'react';
+import ReactDom from 'react-dom';
+
+const Root = document.getElementById('main');
+ReactDom.render(React.createElement(banji, {}, null), Root);
 
 console.log('js loading successfully');
 

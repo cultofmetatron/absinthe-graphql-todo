@@ -12,6 +12,7 @@ module.exports = {
     modules: [ "node_modules" ],
     extensions: ['.ts', '.tsx', '.js', 'jsx']
   },
+  devtool: "source-map",
   module: {
     loaders: [
       {
@@ -30,10 +31,16 @@ module.exports = {
           presets: ["es2015", "es2016", "es2017"]
         }
       },
-      { test: /\.tsx?$/,
+      { 
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: 'ts-loader'
-      } 
+        loader: "awesome-typescript-loader" 
+      },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
      ]
-  }
+  },
+  externals: {
+    //"react": "React",
+    //"react-dom": "ReactDOM"
+  },
 };
