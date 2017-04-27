@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "declaration": false,
+      "noImplicitAny": false,
+      "removeComments": false,
+      "noLib": false,
+      "lib": [
+        "es6",
+        "dom"
+      ],
+      "baseUrl": "./",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "rootDir": ".",
+      "typeRoots": [
+        "node_modules/@types"
+      ]
+    },
+
+  "include": [
+    "js/**/*.ts"
+  ],
+  "exclude": [
+    "typings/browser.d.ts",
+    "typings/browser",
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts",
+    "typings/index.d.ts"
+  ]
+}

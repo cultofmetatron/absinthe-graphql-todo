@@ -19,11 +19,10 @@ import 'phoenix_html'
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-import socket from "./socket"
+import socket from "./socket";
+import banji from './banji';
 
-let Elm = require('./main.elm');
-let mountNode = document.getElementById('main');
-let app = Elm.Main.embed(mountNode);
+banji();
 
 console.log('js loading successfully');
 

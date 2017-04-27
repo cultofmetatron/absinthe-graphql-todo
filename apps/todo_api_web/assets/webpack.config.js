@@ -9,7 +9,8 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    modules: [ "node_modules" ]
+    modules: [ "node_modules" ],
+    extensions: ['.ts', '.tsx', '.js', 'jsx']
   },
   module: {
     loaders: [
@@ -29,11 +30,10 @@ module.exports = {
           presets: ["es2015", "es2016", "es2017"]
         }
       },
-      {
-        test: /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
-        loader: 'elm-webpack-loader'
-      }
-    ]
+      { test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader'
+      } 
+     ]
   }
 };
