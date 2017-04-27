@@ -22,6 +22,7 @@
       "rootDir": ".",
       "typeRoots": [
         "node_modules/@types"
+        
       ]
   },
 
