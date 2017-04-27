@@ -5,6 +5,8 @@
 # is restricted to this project.
 use Mix.Config
 
+config :hound, driver: "phantomjs"
+
 # General application configuration
 config :todo_api_web,
   namespace: TodoApi.Web,

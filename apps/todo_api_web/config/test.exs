@@ -4,4 +4,5 @@ use Mix.Config
 # you can enable the server option below.
 config :todo_api_web, TodoApi.Web.Endpoint,
   http: [port: 4001],
-  server: false
+  index: "http://localhost:4001",
+  server: true

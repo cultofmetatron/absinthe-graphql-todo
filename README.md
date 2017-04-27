@@ -75,6 +75,13 @@ mix phx.server
 ### runnign the tests
 once you've edited the `apps/todo_api/config/test.exs` file, you can fun the tests.
 
+start phantomjs in a seperate window for the integration tests
+
+```
+phantomjs --wd
+```
+
+
 ```
 mix test
 ```

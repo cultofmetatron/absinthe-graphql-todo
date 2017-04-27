@@ -22,7 +22,7 @@ defmodule TodoApi.Web.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {TodoApi.Web.Application, []},
-     extra_applications: [:logger, :absinthe, :absinthe_plug]]
+     extra_applications: [:logger, :absinthe, :absinthe_plug, :hound]] #note will hound run in prod?
   end
 
   # Specifies which paths to compile per environment.
@@ -44,7 +44,8 @@ defmodule TodoApi.Web.Mixfile do
      {:absinthe, "~> 1.2.0"},
      {:absinthe_plug, "~> 1.2.3"},
      {:poison, "~> 3.0"},
-     {:joken, "~> 1.4"}
+     {:joken, "~> 1.4"},
+     {:hound, "~> 1.0", only: [:dev, :test]}
     ]
   end
 
