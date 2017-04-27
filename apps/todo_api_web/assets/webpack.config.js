@@ -9,8 +9,8 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    modules: [ "node_modules" ],
-    extensions: ['.ts', '.tsx', '.js', 'jsx']
+    modules: [ path.resolve(__dirname, 'js'), path.resolve(__dirname, 'node_modules') ],
+    extensions: ['.tsx', '.ts','.js', 'jsx']
   },
   devtool: "source-map",
   module: {

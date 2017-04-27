@@ -2,8 +2,10 @@
   "compilerOptions": {
       "target": "es5",
       "module": "commonjs",
+      "moduleResolution": "node",
       "declaration": false,
       "noImplicitAny": false,
+      "sourceMap": true,
       "removeComments": false,
       "noLib": false,
       "jsx": "react",
@@ -11,18 +13,20 @@
         "es6",
         "dom"
       ],
-      "baseUrl": "./",
+      "baseUrl": "./js",
+      "paths": {
+       
+      },
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "rootDir": ".",
       "typeRoots": [
         "node_modules/@types"
       ]
-    },
+  },
 
   "include": [
-    "js/**/*.ts",
-    "js/**/*.tsx"
+    "js/**/*"
   ],
   "exclude": [
     "typings/browser.d.ts",
