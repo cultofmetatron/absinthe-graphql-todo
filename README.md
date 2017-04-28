@@ -1,4 +1,4 @@
-# TodoApi api for fooji
+# TodoApi api
 
 I have a policy that if I'm doing take home challenges, I use them as an oportunity to learn something. With that in mind, I have implemented a graphql api using phoenix 1.3 beta and absinthe, a graphql library for elixir.
 
