@@ -7,7 +7,7 @@ export interface TesterProps {}
 
 class foobar2 extends Component<TesterProps, undefined> {
   render() {
-    return <h1>hello Sam</h1>;
+    return <h1>hello Samael</h1>;
   }
 }
 

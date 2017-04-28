@@ -4,7 +4,7 @@
   "scripts": {
     "deploy": "brunch build --production",
     "watch": "webpack --watch-stdin --progress --color",
-    "generate-schema": "apollo-codegen introspect-schema http://localhost:4000/api --output js/schema/schema.json && apollo-codegen generate js/queries/*.graphql --schema js/schema/schema.json --output js/schema/schema.ts"
+    "generate-schema": "apollo-codegen introspect-schema http://localhost:4000/api --output js/schema/schema.json && apollo-codegen generate js/queries/*.graphql --schema js/schema/schema.json --target ts --output js/schema/schema.ts"
   },
   "dependencies": {
     "@types/isomorphic-fetch": "0.0.34",
