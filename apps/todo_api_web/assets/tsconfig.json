@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
       "target": "es5",
+      "plugins": [
+        {
+          "name": "ts-graphql-plugin",
+          "schema": "path-to-your-schema.json",
+          "tag": "gql" 
+        }
+      ],
       "module": "commonjs",
       "moduleResolution": "node",
       "declaration": false,

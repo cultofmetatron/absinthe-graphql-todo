@@ -3,7 +3,8 @@
   "license": "MIT",
   "scripts": {
     "deploy": "brunch build --production",
-    "watch": "webpack --watch-stdin --progress --color"
+    "watch": "webpack --watch-stdin --progress --color",
+    "generate-schema": "apollo-codegen introspect-schema http://localhost:4000/api --output js/schema/schema.json && apollo-codegen generate js/queries/*.graphql --schema js/schema/schema.json --output js/schema/schema.ts"
   },
   "dependencies": {
     "@types/isomorphic-fetch": "0.0.34",
@@ -13,7 +14,6 @@
     "awesome-typescript-loader": "^3.1.2",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.0",
-    "elm-webpack-loader": "^4.3.0",
     "file-loader": "^0.11.1",
     "font-awesome": "4",
     "immutable": "^3.8.1",
@@ -43,6 +43,7 @@
     "jest": "^19.0.2",
     "jscs": "^3.0.7",
     "react-test-renderer": "^15.5.4",
+    "ts-graphql-plugin": "^1.0.0",
     "uglify-js-brunch": "2.1.1",
     "webpack": "^2.3.3"
   }
