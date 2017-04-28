@@ -1,0 +1,7 @@
+mutation Signin($email: String!, $password: String!) {
+  signin(email: $email, password: $password) {
+    id
+    email
+    jwt
+  }
+}
