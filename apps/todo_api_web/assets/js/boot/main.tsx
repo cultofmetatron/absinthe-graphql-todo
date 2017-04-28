@@ -1,7 +1,18 @@
 
-//import {foobar2} from './tester';
-//const foobar = () => console.log("hello banji");
-import {foobar2} from 'components/tester';
+import * as React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux'
+
+import  { Message } from 'models/message';
 
 
-export default foobar2;
+/*
+  Boots up the application
+
+*/
+export const bootLoad = () => {
+
+
+};
+

@@ -20,13 +20,13 @@ import 'phoenix_html'
 // paths "./socket" or full ones "web/static/js/socket".
 
 import socket from "./socket";
-import banji from 'boot/main';
+//import banji from 'boot/main';
 
 import React from 'react';
 import ReactDom from 'react-dom';
 
-const Root = document.getElementById('main');
-ReactDom.render(React.createElement(banji, {}, null), Root);
+//const Root = document.getElementById('main');
+//ReactDom.render(React.createElement(banji, {}, null), Root);
 
 console.log('js loading successfully');
 
