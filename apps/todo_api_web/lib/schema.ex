@@ -6,18 +6,16 @@ defmodule TodoApi.Web.Schema do
   query do
 
     field :user, :user do
-      (&TodoApi.Web.UserResolver.find/2)
+      resolve (&TodoApi.Web.UserResolver.find/2)
         |> handle_errors()
-        |> require_authenticated()
-        |> resolve()
     end
-    
+
     field :todos, list_of(:todo) do
       arg :labels, list_of(:string)
-      (&TodoApi.Web.TodoResolver.all/2)
+
+      resolve (&TodoApi.Web.TodoResolver.all/2)
         |> handle_errors()
         |> require_authenticated()
-        |> resolve()
     end
 
   end
@@ -29,18 +27,18 @@ defmodule TodoApi.Web.Schema do
       arg :email, non_null(:string)
       arg :password, non_null(:string)
       arg :password_confirmation, non_null(:string)
-      (&TodoApi.Web.UserResolver.signup/2)
+
+      resolve (&TodoApi.Web.UserResolver.signup/2)
         |> handle_errors()
-        |> resolve()
     end
 
     @desc"sign the user in"
     field :signin, type: :user do
       arg :email, non_null(:string)
       arg :password, non_null(:string)
-      (&TodoApi.Web.UserResolver.signin/2)
+
+      resolve (&TodoApi.Web.UserResolver.signin/2)
         |> handle_errors()
-        |> resolve()
     end
 
     # Todo Operations
@@ -49,10 +47,10 @@ defmodule TodoApi.Web.Schema do
       arg :description, :string
       arg :done, :boolean
       arg :labels, list_of(:string)
-      (&TodoApi.Web.TodoResolver.create/2)
+
+      resolve (&TodoApi.Web.TodoResolver.create/2)
         |> handle_errors()
         |> require_authenticated()
-        |> resolve()
     end
 
     field :update_todo, type: :todo do
@@ -60,36 +58,36 @@ defmodule TodoApi.Web.Schema do
       arg :content, :string
       arg :description, :string
       arg :done, :boolean
-      (&TodoApi.Web.TodoResolver.update/2)
+
+      resolve (&TodoApi.Web.TodoResolver.update/2)
         |> handle_errors()
         |> require_authenticated()
-        |> resolve()
     end
 
     field :delete_todo, type: :todo do
       arg :id, non_null(:id)
-      (&TodoApi.Web.TodoResolver.delete/2)
+
+      resolve (&TodoApi.Web.TodoResolver.delete/2)
         |> handle_errors()
         |> require_authenticated()
-        |> resolve()
     end
 
     field :add_label, type: :label do
       arg :id, non_null(:id)
       arg :label, non_null(:string)
-      (&TodoApi.Web.TodoResolver.add_label/2)
+
+      resolve (&TodoApi.Web.TodoResolver.add_label/2)
         |> handle_errors()
         |> require_authenticated()
-        |> resolve()
     end
 
     field :remove_label, type: :label do
       arg :id, non_null(:id)
       arg :label, non_null(:string)
-      (&TodoApi.Web.TodoResolver.remove_label/2)
+
+      resolve (&TodoApi.Web.TodoResolver.remove_label/2)
         |> handle_errors()
         |> require_authenticated()
-        |> resolve()
     end
 
   end
@@ -108,7 +106,7 @@ defmodule TodoApi.Web.Schema do
   end
 
   @doc"""
-    interceptsecto changsets and converts them into a format that 
+    intercepts ecto changsets and converts them into a format that
     absinthe can render in graphql
   """
   def handle_errors(fun) do
@@ -124,9 +122,9 @@ defmodule TodoApi.Web.Schema do
   def format_changeset(changeset) do
     #{:error, [email: {"has already been taken", []}]}
     errors = changeset.errors
-      |> Enum.map(fn({key, {value, context}}) -> 
-           [message: "#{key} #{value}", details: context]
-         end)
+      |> Enum.map(fn({key, {value, context}}) ->
+                    [message: "#{key} #{value}", details: context]
+                  end)
     {:error, errors}
   end
 
