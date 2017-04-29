@@ -1,15 +1,13 @@
 defmodule TodoApi.Test.Schema.UserTest do
   use TodoApi.DataCase
 
-  alias TodoApi.Schema.User 
+  alias TodoApi.Schema.User
 
-  @valid_attrs %{uid: "some content"}
   @valid_signup_attrs %{
     email: "foobar@example.com",
     password: "foobar677",
     password_confirmation: "foobar677"
   }
-  @invalid_attrs %{}
 
   describe "signup changeset" do
     test "works with valid arguments" do
