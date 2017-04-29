@@ -1,7 +1,6 @@
 defmodule TodoApi.Schema.User.Todo do
   use TodoApi.Api, :schema
   alias TodoApi.Schema.User
-  alias TodoApi.Schema.User.Todo
   alias TodoApi.Schema.User.Label
 
   schema "todos" do
@@ -14,7 +13,7 @@ defmodule TodoApi.Schema.User.Todo do
     timestamps()
   end
 
-  @doc"""
+  @doc """
     creates a todo
     > user = Repo.get(User, id)
     > todo = user |> Todo.create_changeset(%{
@@ -31,7 +30,7 @@ defmodule TodoApi.Schema.User.Todo do
       |> assoc_constraint(:user)
   end
 
-  @doc"""
+  @doc """
     updates the todo. must have an existing id
   """
   def update_changeset(struct, params \\%{}) do
@@ -39,7 +38,7 @@ defmodule TodoApi.Schema.User.Todo do
       |> cast(params, [:done, :content, :description])
   end
 
- @doc"""
+ @doc """
     return all the todos annotated with the labels attached to them
   """
   def find_todos_with_label(%User{}=user) do

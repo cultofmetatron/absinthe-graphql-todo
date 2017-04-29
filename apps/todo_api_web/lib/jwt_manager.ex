@@ -6,14 +6,13 @@ defmodule TodoApi.Web.JwtManager do
 
   def init(opts), do: opts
 
-  
   def call(conn, _) do
     token = get_token(conn)
     if token do
       case verify_jwt(token) do
-        %Joken.Token{error: nil, claims: claims }=payload  ->
+        %Joken.Token{error: nil, claims: claims } ->
           conn |> get_user(Map.get(claims, "user_id"))
-        %Joken.Token{error: error, claims: claims } ->
+        %Joken.Token{} ->
           conn |> put_invalid_token()
       end
     else
@@ -56,10 +55,6 @@ defmodule TodoApi.Web.JwtManager do
       |> Joken.with_signer(hs256(secret))
       |> Joken.with_aud(iss)
       |> verify()
-  end
-
-  defp base_url do
-    return Application.get_env(:todo_api_web, TodoApi.Web.Endpoint)[:url][:host]
   end
 
   def sign_jwt(%User{}=user) do

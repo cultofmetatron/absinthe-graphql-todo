@@ -8,7 +8,6 @@ defmodule TodoApi.Web.TodoResolverTest do
   """
   use TodoApi.Web.ConnCase
   alias TodoApi.Repo
-  alias TodoApi.Schema.User
   alias TodoApi.Schema.User.Todo
   alias TodoApi.Schema.User.Label
   alias TodoApi.Web.UserResolver
@@ -82,7 +81,7 @@ defmodule TodoApi.Web.TodoResolverTest do
     end
 
     test "adds a label to the todo", %{user: user, todo: todo} do
-      assert {:ok, %Label{}=label} = TodoResolver.add_label(%{
+      assert {:ok, %Label{}} = TodoResolver.add_label(%{
         id: todo.id,
         label: "yoloswag"
       }, %{context: %{current_user: user}})
@@ -92,7 +91,7 @@ defmodule TodoApi.Web.TodoResolverTest do
     end
 
     test "removes a label to the todo", %{user: user, todo: todo} do
-      assert {:ok, %Label{}=label} = TodoResolver.add_label(%{
+      assert {:ok, %Label{}} = TodoResolver.add_label(%{
         id: todo.id,
         label: "yoloswag"
       }, %{context: %{current_user: user}})
@@ -100,7 +99,7 @@ defmodule TodoApi.Web.TodoResolverTest do
       todo = todo |> Repo.preload(:labels)
       assert Enum.count(todo.labels) == 1
 
-      assert {:ok, %Label{}} = {:ok, %Label{}=label} = TodoResolver.remove_label(%{
+      assert {:ok, %Label{}} = {:ok, %Label{}} = TodoResolver.remove_label(%{
         id: todo.id,
         label: "yoloswag"
       }, %{context: %{current_user: user}})
@@ -131,16 +130,16 @@ defmodule TodoApi.Web.TodoResolverTest do
         content: "todo2",
         labels: ["yolo", "tag1"]
       },  %{context: %{current_user: user}})
-      {:ok, todo} = TodoResolver.create(%{
+      {:ok, _todo} = TodoResolver.create(%{
         content: "laundry time",
         description: "laundry day is a very dangerous day",
         labels: ["yolo", "laundry"]
       },  %{context: %{current_user: user}})
-      {:ok, todo} = TodoResolver.create(%{
+      {:ok, _todo} = TodoResolver.create(%{
         content: "sit around",
       },  %{context: %{current_user: user}})
 
-      :ok      
+      :ok
     end
 
     test "gets all the todos", %{user: user} do
