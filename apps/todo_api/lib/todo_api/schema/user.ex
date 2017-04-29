@@ -18,7 +18,7 @@ defmodule TodoApi.Schema.User do
   end
 
 
-  @doc"""
+  @doc """
     requires an email and a password
     {:ok, user } = User.signup_changeset(%User{}, %{
       email: "bob@example.com",
@@ -38,7 +38,7 @@ defmodule TodoApi.Schema.User do
       
   end
 
-  @docp """
+  @doc """
     confirms that the changeset has a changeset and a confirmation
   """
   def password_and_confirmation_matches(changeset) do
@@ -53,7 +53,7 @@ defmodule TodoApi.Schema.User do
   end
 
 
-  @docp """
+  @doc """
     generates the password hash
   """
   def generate_password_hash(changeset) do
@@ -62,7 +62,7 @@ defmodule TodoApi.Schema.User do
     changeset |> put_change(:password_hash, hash)
   end
 
-  def check_password(%User{password_hash: password_hash}=user, password) do
+  def check_password(%User{password_hash: password_hash}, password) do
     Comeonin.Bcrypt.checkpw(password, password_hash)
   end
 
@@ -71,7 +71,7 @@ defmodule TodoApi.Schema.User do
       |> distinct([l], l.text)
   end
 
-  @doc"""
+  @doc """
     takes a user and a list of text labels and returns all todos that join them
     returns a queriable
     > User.find_todos_by_label(user, ["yolo", "faith hilling"]) |> Repo.all()

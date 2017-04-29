@@ -2,7 +2,6 @@ defmodule TodoApi.Web.UserResolverTest do
   use TodoApi.Web.ConnCase
   alias TodoApi.Repo
   alias TodoApi.Schema.User
-  alias TodoApi.Schema.User.Todo
   alias TodoApi.Web.UserResolver
 
   @valid_user_attrs_signup %{

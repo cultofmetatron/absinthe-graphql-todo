@@ -3,16 +3,14 @@ defmodule TodoApi.Web.TodoResolver do
     The todo resolver
     proxies the graphql queries into our database queries
   """
-  alias TodoApi.Schema.User
   alias TodoApi.Schema.User.Todo
   alias TodoApi.Schema.User.Label
   alias TodoApi.Repo
   use Ecto.Schema
   import Ecto
-  import Ecto.Changeset
   import Ecto.Query
 
-  def all(%{labels: labels}, %{context: %{current_user: user}}=info) do
+  def all(%{labels: labels}, %{context: %{current_user: user}}) do
     todos = from(t in assoc(user, :todos))
       |> join(:left, [t], l in assoc(t, :labels))
       |> where([t, l], l.text in ^labels)
@@ -22,7 +20,7 @@ defmodule TodoApi.Web.TodoResolver do
       |> Repo.all()
     {:ok, todos}
   end
-  def all(_args, %{context: %{current_user: current_user}}=info) do
+  def all(_args, %{context: %{current_user: current_user}}) do
     todos = current_user
       |> Todo.find_todos_with_label()
       |> Repo.all()
@@ -30,7 +28,7 @@ defmodule TodoApi.Web.TodoResolver do
   end
 
 
-  @doc"""
+  @doc """
     creates a todo
   """
   def create(%{labels: labels}=params, %{context: %{current_user: user}}) do
@@ -38,8 +36,8 @@ defmodule TodoApi.Web.TodoResolver do
     transaction = Repo.transaction(fn() -> 
       case Todo.create_changeset(user, params) |> Repo.insert() do
         {:error, message } -> Repo.rollback(message)
-        {:ok, %Todo{id: id}=todo} ->
-          label_status = Enum.map(labels, fn(label) ->
+        {:ok, %Todo{}=todo} ->
+          Enum.map(labels, fn(label) ->
             case Label.create_changeset(user, todo, %{text: label}) |> Repo.insert do
               {:error, message } -> Repo.rollback(message)
               {:ok, label} -> {:ok, label}
@@ -89,13 +87,13 @@ defmodule TodoApi.Web.TodoResolver do
     end
   end
 
-  @docp"""
+  @doc """
     takes an id for a todo and the user. it retrieves the todo from
     the database and if the todo belongs to the current user, we pass the
-    retrieved todo into the callback. Wtherwise, we return an error saying it does
+    retrieved todo into the callback. Otherwise, we return an error saying it does
     not exist.
   """
-  defp get_todo_for_owner(id, user, func) do
+  def get_todo_for_owner(id, user, func) do
     case Repo.get(Todo, id) do
       nil -> {:error, "todo does not exist"}
       %Todo{}=todo ->
