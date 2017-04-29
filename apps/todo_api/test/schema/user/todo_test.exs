@@ -4,7 +4,6 @@ defmodule TodoApi.Test.Schema.TodoTest do
   alias TodoApi.Schema.User
   alias TodoApi.Schema.User.Todo
   alias TodoApi.Schema.User.Label
-  alias TodoApi.Web
   alias TodoApi.Repo
 
   setup do
@@ -12,7 +11,7 @@ defmodule TodoApi.Test.Schema.TodoTest do
       email: "foobar@example.com",
       password: "foobar677",
       password_confirmation: "foobar677"
-    });
+    })
     {:ok, user} = user_changeset |> Repo.insert()
     %{user: user}
   end
@@ -51,8 +50,6 @@ defmodule TodoApi.Test.Schema.TodoTest do
       {:ok, todo} = Todo.update_changeset(todo, %{done: true}) |> Repo.update()
       assert todo.done
     end
-
-
   end
 
 
@@ -61,12 +58,11 @@ defmodule TodoApi.Test.Schema.TodoTest do
       todo1 = Todo.create_changeset(user, %{
         content: "do the laundry"
       }) |> Repo.insert!()
-      
+
       todo2 = Todo.create_changeset(user, %{
         content: "do the dishes"
       }) |> Repo.insert!()
-      
-     
+
       Label.create_changeset(user, todo1, %{
         text: "chores"
       }) |> Repo.insert!()
@@ -75,11 +71,10 @@ defmodule TodoApi.Test.Schema.TodoTest do
         text: "yolo"
       }) |> Repo.insert!()
 
-     
       Map.merge(ctx, %{todos: [todo1, todo2]})
     end
 
-    setup ctx do
+    setup _ctx do
       :ok
     end
 
@@ -95,8 +90,6 @@ defmodule TodoApi.Test.Schema.TodoTest do
       assert Enum.count(dishes.labels) == 0
 
     end
-    
-    
   end
 
 end
