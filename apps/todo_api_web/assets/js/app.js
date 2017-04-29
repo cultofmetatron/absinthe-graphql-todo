@@ -25,8 +25,11 @@ import socket from "./socket";
 import React from 'react';
 import ReactDom from 'react-dom';
 
-//const Root = document.getElementById('main');
-//ReactDom.render(React.createElement(banji, {}, null), Root);
+import {bootLoad} from 'boot/main';
+
+const Root = document.getElementById('main');
+const rootNode = bootLoad();
+ReactDom.render(rootNode, Root);
 
 console.log('js loading successfully');
 

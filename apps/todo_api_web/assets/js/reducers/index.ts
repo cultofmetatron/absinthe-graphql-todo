@@ -1,8 +1,8 @@
 
 import {combineReducers} from 'redux';
+import createHistory from 'history/createBrowserHistory'
 
 import {accountReducer as account} from 'reducers/account';
 
-const appReducer = combineReducers({
-  account
-});
+
+export {account};

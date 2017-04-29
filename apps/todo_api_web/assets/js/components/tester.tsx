@@ -5,11 +5,11 @@ import * as ReactDom from 'react-dom';
 
 export interface TesterProps {}
 
-class foobar2 extends Component<TesterProps, undefined> {
+class Tester extends Component<TesterProps, undefined> {
   render() {
     return <h1>hello Samael</h1>;
   }
 }
 
 
-export { foobar2 };
+export { Tester };

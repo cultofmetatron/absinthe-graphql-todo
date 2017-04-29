@@ -1,6 +1,5 @@
 
-export interface Action {
+export interface Action<T> {
   type: string,
-  args: any
+  args: T
 };
-
