@@ -19,6 +19,7 @@
     "history": "^4.6.1",
     "immutable": "^3.8.1",
     "jscs": "^3.0.7",
+    "material-ui": "^0.17.4",
     "phoenix": "file:../../../deps/phoenix",
     "phoenix_html": "file:../../../deps/phoenix_html",
     "react": "^15.5.4",

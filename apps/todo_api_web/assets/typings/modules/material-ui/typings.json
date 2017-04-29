@@ -1,0 +1,22 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/mattiamanzati/typings-material-ui/45aaa14152030a202db05d9a1bfd098cd03b4aae/typings.json",
+    "raw": "registry:npm/material-ui#0.15.1+20160817172421",
+    "main": "main.d.ts",
+    "version": "0.15.1",
+    "files": [
+      "styles.d.ts",
+      "svg-icons.d.ts"
+    ],
+    "dependencies": {
+      "react": {
+        "src": "https://raw.githubusercontent.com/cantide5ga/typed-react/42692d400db3c333394ec75bce9f6d09b5a0a769/typings.json",
+        "raw": "registry:npm/react#15.0.1+20160601175240",
+        "main": "react.d.ts",
+        "name": "react"
+      }
+    },
+    "name": "material-ui"
+  }
+}

@@ -11,7 +11,7 @@ import * as reducers from 'reducers/index';
 import  { Action } from 'models/action';
 
 import {Tester} from 'components/tester'
-
+import { SignInPage } from 'pages/signin';
 /*
   Boots up the application
 
@@ -33,6 +33,7 @@ export const bootLoad = () => {
       <ConnectedRouter history={history}>
         <div>
           <Route exact path="/" component={Tester}/>
+          <Route exact path="/signin" component={SignInPage} />
         </div>
       </ConnectedRouter>
     </Provider>
