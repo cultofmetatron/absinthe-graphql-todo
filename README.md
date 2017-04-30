@@ -1,5 +1,10 @@
 # TodoApi api
 
+Todo list:
+* signup page
+* signin page
+
+
 I have a policy that if I'm doing take home challenges, I use them as an oportunity to learn something. With that in mind, I have implemented a graphql api using phoenix 1.3 beta and absinthe, a graphql library for elixir.
 
 The Api covers the following features

@@ -7,17 +7,19 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
 import { Route } from 'react-router'
 import * as reducers from 'reducers/index';
-
 import  { Action } from 'models/action';
 
 import {Tester} from 'components/tester'
 import { SignInPage } from 'pages/signin';
+
 /*
   Boots up the application
 
 */
 export const bootLoad = () => {
   //boot up history
+  
+
   const history = createHistory();
   const reducer = combineReducers({
     ...reducers,

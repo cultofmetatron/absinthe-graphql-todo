@@ -8,6 +8,7 @@
     <meta name="author" content="">
 
     <title>Hello TodoApi!</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 

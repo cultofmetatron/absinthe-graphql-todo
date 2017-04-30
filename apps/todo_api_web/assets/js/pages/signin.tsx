@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
+import { AppLayout } from 'components/layout/app.layout';
+import { SignInComponent } from 'components/account/signin.component';
 
 export interface SignInPageProps {
 
@@ -11,7 +13,9 @@ class SignInPage extends Component<SignInPageProps, null> {
   }
   render() {
     return (
-      <h1>signin page</h1>
+      <AppLayout>
+        <SignInComponent />
+      </AppLayout>
     );
   }
 }

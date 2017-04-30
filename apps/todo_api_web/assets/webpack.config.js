@@ -10,11 +10,18 @@ module.exports = {
   },
   resolve: {
     modules: [ path.resolve(__dirname, 'js'), path.resolve(__dirname, 'node_modules') ],
-    extensions: ['.tsx', '.ts','.js', 'jsx']
+    extensions: ['.tsx', '.ts','.js', 'jsx', 'css', 'scss']
   },
   devtool: "source-map",
+  plugins: [
+  ],
   module: {
     loaders: [
+      {
+        test: /(\.css|\.scss)$/,
+        //loader: 'style-loader!css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
+         loaders: ['style-loader', 'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss-loader'],
+      },
       {
         test: /.jsx?$/,
         loader: 'babel-loader',
